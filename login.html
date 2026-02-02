@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="数字游民平台账号登录页面">
+  <title>登录</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- 导航栏 -->
+  <header class="bg-blue-700 p-4">
+    <nav class="flex justify-between items-center">
+      <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
+    </nav>
+  </header>
+
+  <!-- 登录表单 -->
+  <section class="p-8">
+    <h2 class="text-3xl font-bold mb-4">账号登录</h2>
+
+    <form id="login-form" class="bg-white p-6 rounded-lg shadow-md">
+      <label for="email" class="block text-lg">邮箱</label>
+      <input id="email" type="email" class="p-2 w-full border border-gray-300 rounded mt-2" placeholder="请输入您的邮箱" required>
+
+      <label for="password" class="block text-lg mt-4">密码</label>
+      <input id="password" type="password" class="p-2 w-full border border-gray-300 rounded mt-2" placeholder="请输入您的密码" required>
+
+      <button type="submit" class="mt-6 p-2 w-full bg-blue-700 text-white rounded">登录</button>
+    </form>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-blue-700 text-white text-center p-4">
+    <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
+  </footer>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

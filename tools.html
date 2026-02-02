@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="实用的数字游民工具：预算计算器和实时汇率">
+  <title>数字游民工具</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- 导航栏 -->
+  <header class="bg-blue-700 p-4">
+    <nav class="flex justify-between items-center">
+      <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
+      <button id="hamburger-menu" class="text-white lg:hidden">
+        <span class="block w-6 h-1 bg-white mb-1"></span>
+        <span class="block w-6 h-1 bg-white mb-1"></span>
+        <span class="block w-6 h-1 bg-white"></span>
+      </button>
+      <div id="menu" class="hidden lg:flex space-x-6">
+        <a href="destinations.html" class="text-white">目的地</a>
+        <a href="community.html" class="text-white">社区</a>
+        <a href="tools.html" class="text-white">工具</a>
+        <a href="member.html" class="text-white">会员</a>
+        <a href="profile.html" class="text-white">个人中心</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 工具内容 -->
+  <section class="p-8">
+    <h2 class="text-3xl font-bold mb-4">实用工具</h2>
+
+    <!-- 预算计算器 -->
+    <div class="mb-8">
+      <h3 class="text-2xl font-semibold">预算计算器</h3>
+      <label for="daily-expense" class="block text-lg mt-4">请输入每日开销（人民币）：</label>
+      <input id="daily-expense" type="number" class="p-2 mt-2 w-full border border-gray-300 rounded" placeholder="每日开销">
+      <button id="calculate-btn" class="mt-4 p-2 bg-blue-700 text-white rounded">计算月成本</button>
+      <p id="monthly-cost" class="mt-4 text-xl">月成本：￥0</p>
+    </div>
+
+    <!-- 汇率工具 -->
+    <div>
+      <h3 class="text-2xl font-semibold">汇率工具</h3>
+      <label for="currency-select" class="block text-lg mt-4">选择币种：</label>
+      <select id="currency-select" class="p-2 mt-2 w-full border border-gray-300 rounded">
+        <option value="usd">美元 (USD)</option>
+        <option value="eur">欧元 (EUR)</option>
+        <option value="thb">泰铢 (THB)</option>
+        <option value="idr">印尼盾 (IDR)</option>
+      </select>
+      <button id="get-exchange-rate" class="mt-4 p-2 bg-blue-700 text-white rounded">获取汇率</button>
+      <p id="exchange-rate" class="mt-4 text-xl">汇率：待获取</p>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-blue-700 text-white text-center p-4">
+    <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+ 

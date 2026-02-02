@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "巴厘岛",
+    "country": "印度尼西亚",
+    "costCny": 6000,
+    "costUsd": 900,
+    "score": 8.5,
+    "image": "https://picsum.photos/300/200?random=1",
+    "visa": "免签，停留可达30天，延签可能",
+    "netSpeed": "30Mbps",
+    "safety": 8
+  },
+  {
+    "id": 2,
+    "name": "清迈",
+    "country": "泰国",
+    "costCny": 5000,
+    "costUsd": 750,
+    "score": 9.2,
+    "image": "https://picsum.photos/300/200?random=2",
+    "visa": "免签，停留可达30天，延签可能",
+    "netSpeed": "50Mbps",
+    "safety": 9
+  },
+  {
+    "id": 3,
+    "name": "墨尔本",
+    "country": "澳大利亚",
+    "costCny": 12000,
+    "costUsd": 1800,
+    "score": 7.8,
+    "image": "https://picsum.photos/300/200?random=3",
+    "visa": "需要申请电子旅游签证，停留3个月",
+    "netSpeed": "100Mbps",
+    "safety": 7
+  },
+  {
+    "id": 4,
+    "name": "里斯本",
+    "country": "葡萄牙",
+    "costCny": 8000,
+    "costUsd": 1200,
+    "score": 8.0,
+    "image": "https://picsum.photos/300/200?random=4",
+    "visa": "欧盟签证或葡萄牙特定签证",
+    "netSpeed": "60Mbps",
+    "safety": 8
+  },
+  {
+    "id": 5,
+    "name": "巴塞罗那",
+    "country": "西班牙",
+    "costCny": 10000,
+    "costUsd": 1500,
+    "score": 8.3,
+    "image": "https://picsum.photos/300/200?random=5",
+    "visa": "申根签证，停留最多90天",
+    "netSpeed": "70Mbps",
+    "safety": 7
+  },
+  {
+    "id": 6,
+    "name": "马德里",
+    "country": "西班牙",
+    "costCny": 9500,
+    "costUsd": 1400,
+    "score": 8.1,
+    "image": "https://picsum.photos/300/200?random=6",
+    "visa": "申根签证，停留最多90天",
+    "netSpeed": "65Mbps",
+    "safety": 8
+  },
+  {
+    "id": 7,
+    "name": "曼谷",
+    "country": "泰国",
+    "costCny": 4500,
+    "costUsd": 675,
+    "score": 8.0,
+    "image": "https://picsum.photos/300/200?random=7",
+    "visa": "免签，停留可达30天，延签可能",
+    "netSpeed": "40Mbps",
+    "safety": 7
+  },
+  {
+    "id": 8,
+    "name": "柏林",
+    "country": "德国",
+    "costCny": 11000,
+    "costUsd": 1650,
+    "score": 8.7,
+    "image": "https://picsum.photos/300/200?random=8",
+    "visa": "需要申请申根签证，停留90天",
+    "netSpeed": "80Mbps",
+    "safety": 9
+  }
+]

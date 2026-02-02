@@ -1,0 +1,20 @@
+/* ÑùÊ½»ù´¡ÅäÖÃ£¬ÊÊÅäTailwind */
+body {
+  font-family: 'Microsoft YaHei', 'Source Han Sans', sans-serif;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+button {
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+footer {
+  font-size: 14px;
+}
