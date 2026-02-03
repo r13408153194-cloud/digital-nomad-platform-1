@@ -8,32 +8,32 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+  <!-- Firebase SDK（统一8.10.0兼容版） -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-<!-- 初始化 Firebase -->
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
-  authDomain: "digital-nomad-platform.firebaseapp.com",
-  projectId: "digital-nomad-platform",
-  storageBucket: "digital-nomad-platform.firebasestorage.app",
-  messagingSenderId: "905530532266",
-  appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
-  measurementId: "G-PELJHP7PKV"
-};
-  // 初始化 Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-</script>
+  <!-- 初始化 Firebase（标准化配置） -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
+      authDomain: "digital-nomad-platform.firebaseapp.com",
+      projectId: "digital-nomad-platform",
+      storageBucket: "digital-nomad-platform.firebasestorage.app",
+      messagingSenderId: "905530532266",
+      appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
+      measurementId: "G-PELJHP7PKV"
+    };
+    // 初始化 Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <!-- 导航栏 -->
+  <!-- 导航栏（补充适配） -->
   <header class="bg-blue-700 p-4">
     <nav class="flex justify-between items-center">
       <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
@@ -47,26 +47,60 @@
     </nav>
   </header>
 
-  <!-- 关于我们内容 -->
+  <!-- 关于我们内容（适配中国用户） -->
   <section class="p-8">
     <h2 class="text-3xl font-bold mb-4">关于我们</h2>
-    <p>我们致力于为全球数字游民提供最佳的目的地推荐和生活指南。</p>
-    <p>我们为用户提供热门目的地信息、社区讨论以及实用工具，帮助数字游民更好地规划他们的远程工作生活。</p>
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <p class="mb-4">我们是专为中国数字游民打造的一站式服务平台，致力于解决中国用户在海外远程工作中的核心痛点：</p>
+      <ul class="list-disc pl-6 mb-4 space-y-2">
+        <li>适配中国护照的签证指南、出入境政策解读</li>
+        <li>人民币计价的目的地生活成本、预算工具</li>
+        <li>中文普及、移动支付便利的目的地筛选</li>
+        <li>中国数字游民专属的社区交流、经验分享</li>
+        <li>合规的跨境收款、税务筹划建议（适配中国法规）</li>
+      </ul>
+      <p>我们的团队由资深数字游民、跨境法务专家、海外生活顾问组成，均有多年海外远程工作经验，深度了解中国用户的需求和痛点。</p>
+    </div>
 
-    <h3 class="text-2xl font-semibold mt-8">联系客服</h3>
-    <p>如果您有任何问题或建议，请通过以下方式联系我们：</p>
-    <ul class="mt-4">
-      <li>客服电话：1234-5678-900</li>
-      <li>客服邮箱：support@nomadplatform.com</li>
-    </ul>
-    <p class="mt-4">扫描以下二维码联系我们的客服：</p>
-    <!-- 预留客服二维码 -->
-    <img src="https://picsum.photos/150" alt="客服二维码" class="mt-4">
+    <h3 id="contact" class="text-2xl font-semibold mt-8 mb-4">联系客服</h3>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <p class="mb-4">如果您有任何问题或建议，请通过以下方式联系我们（工作日 9:00-18:00 回复）：</p>
+      <ul class="mt-4 space-y-3">
+        <li class="flex items-center"><span class="w-24 text-gray-600">客服电话：</span>400-123-4567（仅中国大陆可拨打）</li>
+        <li class="flex items-center"><span class="w-24 text-gray-600">客服邮箱：</span>support@nomadplatform.com</li>
+        <li class="flex items-center"><span class="w-24 text-gray-600">微信客服：</span>NomadPlatformCN</li>
+        <li class="flex items-center"><span class="w-24 text-gray-600">QQ群：</span>123456789（数字游民交流群）</li>
+      </ul>
+      <p class="mt-4">扫描以下二维码添加微信客服：</p>
+      <img src="https://picsum.photos/150" alt="客服二维码" class="mt-4 border border-gray-200 p-2 rounded-lg">
+      
+      <h4 class="text-xl font-semibold mt-8 mb-2">常见问题</h4>
+      <div class="space-y-4 mt-4">
+        <div class="border-b border-gray-200 pb-2">
+          <p class="font-semibold">Q: 平台的目的地信息是否适配中国护照？</p>
+          <p class="text-gray-700">A: 是的，所有目的地均标注中国护照的签证政策、入境要求，确保信息精准适配。</p>
+        </div>
+        <div class="border-b border-gray-200 pb-2">
+          <p class="font-semibold">Q: 预算工具是否支持人民币计价？</p>
+          <p class="text-gray-700">A: 是的，平台所有工具默认人民币计价，同时支持与主流币种的实时汇率转换。</p>
+        </div>
+        <div class="border-b border-gray-200 pb-2">
+          <p class="font-semibold">Q: 会员服务如何付费？</p>
+          <p class="text-gray-700">A: 支持微信支付、支付宝、银行卡等国内主流支付方式，无跨境手续费。</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- 页脚 -->
   <footer class="bg-blue-700 text-white text-center p-4">
-    <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
+    <div class="flex flex-col md:flex-row justify-center gap-4 mb-4">
+      <a href="about.html" class="text-white hover:underline">关于我们</a>
+      <a href="about.html#contact" class="text-white hover:underline">客服支持</a>
+      <a href="member.html" class="text-white hover:underline">会员服务</a>
+      <a href="#" class="text-white hover:underline">隐私政策（适配中国法规）</a>
+    </div>
+    <p>&copy; 2026 数字游民平台 - 所有权利保留 | 专为中国数字游民打造</p>
   </footer>
 </body>
 </html>

@@ -19,21 +19,22 @@
     .tip { color: red; margin: 10px 0; font-size: 14px; }
     .success { color: green; }
   </style>
-  <!-- 粘贴Firebase代码（和其他页面一致） -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+  <!-- 已替换为兼容的Firebase 8.10.0 SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
   <script>
+    // 已填入你最新的正确配置
     const firebaseConfig = {
-  apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
-  authDomain: "digital-nomad-platform.firebaseapp.com",
-  projectId: "digital-nomad-platform",
-  storageBucket: "digital-nomad-platform.firebasestorage.app",
-  messagingSenderId: "905530532266",
-  appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
-  measurementId: "G-PELJHP7PKV"
-};
+      apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
+      authDomain: "digital-nomad-platform.firebaseapp.com",
+      projectId: "digital-nomad-platform",
+      storageBucket: "digital-nomad-platform.firebasestorage.app",
+      messagingSenderId: "905530532266",
+      appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
+      measurementId: "G-PELJHP7PKV"
+    };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
@@ -99,9 +100,7 @@
       }
       
       try {
-        // 创建用户
         const user = await auth.createUserWithEmailAndPassword(email, pwd);
-        // 把用户信息存入数据库
         await db.collection('users').doc(user.user.uid).set({
           email: email,
           nickname: '数字游民_' + Math.floor(Math.random()*1000),
@@ -116,7 +115,6 @@
       }
     }
 
-    // 监听登录状态，已登录直接跳首页
     auth.onAuthStateChanged(user => {
       if (user) window.location.href = 'index.html';
     });

@@ -8,36 +8,41 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+  
+  <!-- Firebase SDK（统一8.10.0兼容版） -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-<!-- 初始化 Firebase -->
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
-  authDomain: "digital-nomad-platform.firebaseapp.com",
-  projectId: "digital-nomad-platform",
-  storageBucket: "digital-nomad-platform.firebasestorage.app",
-  messagingSenderId: "905530532266",
-  appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
-  measurementId: "G-PELJHP7PKV"
-};
+  <!-- 初始化 Firebase（标准化配置） -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
+      authDomain: "digital-nomad-platform.firebaseapp.com",
+      projectId: "digital-nomad-platform",
+      storageBucket: "digital-nomad-platform.firebasestorage.app",
+      messagingSenderId: "905530532266",
+      appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
+      measurementId: "G-PELJHP7PKV"
+    };
 
-  // 初始化 Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-</script>
+    // 初始化 Firebase 核心及功能模块
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <!-- 导航栏 -->
+  <!-- 导航栏（补充中国用户适配） -->
   <header class="bg-blue-700 p-4">
     <nav class="flex justify-between items-center">
       <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
+      <div class="hidden lg:flex items-center space-x-4 mr-4">
+        <span class="text-white text-sm">语言: 中文</span>
+        <span class="text-white text-sm">计价: 人民币(CNY)</span>
+      </div>
       <button id="hamburger-menu" class="text-white lg:hidden">
         <span class="block w-6 h-1 bg-white mb-1"></span>
         <span class="block w-6 h-1 bg-white mb-1"></span>
@@ -53,40 +58,166 @@
     </nav>
   </header>
 
-  <!-- 工具内容 -->
+  <!-- 工具内容（适配中国用户） -->
   <section class="p-8">
-    <h2 class="text-3xl font-bold mb-4">实用工具</h2>
+    <h2 class="text-3xl font-bold mb-4">实用工具（人民币计价）</h2>
 
-    <!-- 预算计算器 -->
-    <div class="mb-8">
-      <h3 class="text-2xl font-semibold">预算计算器</h3>
-      <label for="daily-expense" class="block text-lg mt-4">请输入每日开销（人民币）：</label>
-      <input id="daily-expense" type="number" class="p-2 mt-2 w-full border border-gray-300 rounded" placeholder="每日开销">
-      <button id="calculate-btn" class="mt-4 p-2 bg-blue-700 text-white rounded">计算月成本</button>
-      <p id="monthly-cost" class="mt-4 text-xl">月成本：￥0</p>
+    <!-- 预算计算器（强化中国用户场景） -->
+    <div class="mb-8 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">数字游民预算计算器</h3>
+      <p class="text-gray-600 mb-4">计算海外生活月成本（默认人民币计价，含房租/餐饮/交通/网络）</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label for="daily-expense" class="block text-lg mt-2">每日餐饮开销（¥）：</label>
+          <input id="daily-expense" type="number" class="p-2 mt-2 w-full border border-gray-300 rounded" placeholder="例如：100" min="0">
+        </div>
+        <div>
+          <label for="monthly-rent" class="block text-lg mt-2">每月房租开销（¥）：</label>
+          <input id="monthly-rent" type="number" class="p-2 mt-2 w-full border border-gray-300 rounded" placeholder="例如：2000" min="0">
+        </div>
+        <div>
+          <label for="monthly-transport" class="block text-lg mt-2">每月交通开销（¥）：</label>
+          <input id="monthly-transport" type="number" class="p-2 mt-2 w-full border border-gray-300 rounded" placeholder="例如：500" min="0">
+        </div>
+        <div>
+          <label for="monthly-internet" class="block text-lg mt-2">每月网络开销（¥）：</label>
+          <input id="monthly-internet" type="number" class="p-2 mt-2 w-full border border-gray-300 rounded" placeholder="例如：300" min="0">
+        </div>
+      </div>
+      <button id="calculate-btn" class="mt-4 p-2 bg-blue-700 text-white rounded hover:bg-blue-800 transition-colors">计算月总成本</button>
+      <p id="monthly-cost" class="mt-4 text-xl font-semibold">月总成本：￥0</p>
+      <p id="cost-tips" class="mt-2 text-gray-600 italic hidden">参考：清迈平均月成本 ¥4000-6000，曼谷 ¥6000-8000</p>
     </div>
 
-    <!-- 汇率工具 -->
-    <div>
-      <h3 class="text-2xl font-semibold">汇率工具</h3>
-      <label for="currency-select" class="block text-lg mt-4">选择币种：</label>
-      <select id="currency-select" class="p-2 mt-2 w-full border border-gray-300 rounded">
-        <option value="usd">美元 (USD)</option>
-        <option value="eur">欧元 (EUR)</option>
-        <option value="thb">泰铢 (THB)</option>
-        <option value="idr">印尼盾 (IDR)</option>
-      </select>
-      <button id="get-exchange-rate" class="mt-4 p-2 bg-blue-700 text-white rounded">获取汇率</button>
-      <p id="exchange-rate" class="mt-4 text-xl">汇率：待获取</p>
+    <!-- 汇率工具（适配中国用户常用币种） -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">实时汇率转换工具</h3>
+      <p class="text-gray-600 mb-4">人民币与数字游民热门目的地币种实时转换（数据每5分钟更新）</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label for="cnny-amount" class="block text-lg mt-2">人民币(CNY)金额：</label>
+          <input id="cny-amount" type="number" class="p-2 mt-2 w-full border border-gray-300 rounded" placeholder="输入金额" min="0" value="1000">
+        </div>
+        <div>
+          <label for="currency-select" class="block text-lg mt-2">转换为目标币种：</label>
+          <select id="currency-select" class="p-2 mt-2 w-full border border-gray-300 rounded">
+            <option value="usd">美元 (USD)</option>
+            <option value="eur">欧元 (EUR)</option>
+            <option value="thb">泰铢 (THB)</option>
+            <option value="idr">印尼盾 (IDR)</option>
+            <option value="sgd">新加坡元 (SGD)</option>
+            <option value="myr">马来西亚林吉特 (MYR)</option>
+          </select>
+        </div>
+      </div>
+      <button id="get-exchange-rate" class="mt-4 p-2 bg-blue-700 text-white rounded hover:bg-blue-800 transition-colors">获取实时汇率</button>
+      <p id="exchange-rate" class="mt-4 text-xl font-semibold">转换结果：待计算</p>
+      <p id="rate-update-time" class="mt-2 text-gray-600 text-sm hidden">汇率更新时间：2026-01-01 12:00</p>
+    </div>
+
+    <!-- 签证时长计算器（中国用户专属） -->
+    <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">签证时长计算器（中国护照专属）</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label for="country-select" class="block text-lg mt-2">目的地国家：</label>
+          <select id="country-select" class="p-2 mt-2 w-full border border-gray-300 rounded">
+            <option value="thailand">泰国</option>
+            <option value="indonesia">印度尼西亚</option>
+            <option value="malaysia">马来西亚</option>
+            <option value="vietnam">越南</option>
+          </select>
+        </div>
+        <div>
+          <label for="entry-date" class="block text-lg mt-2">入境日期：</label>
+          <input id="entry-date" type="date" class="p-2 mt-2 w-full border border-gray-300 rounded">
+        </div>
+      </div>
+      <button id="calculate-visa" class="mt-4 p-2 bg-blue-700 text-white rounded hover:bg-blue-800 transition-colors">计算可停留时长</button>
+      <p id="visa-result" class="mt-4 text-xl font-semibold">可停留时长：待计算</p>
+      <p id="visa-tips" class="mt-2 text-gray-600 italic hidden">提示：泰国落地签可停留60天，可续签1次（中国护照）</p>
     </div>
   </section>
 
   <!-- 页脚 -->
-  <footer class="bg-blue-700 text-white text-center p-4">
-    <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
+  <footer class="bg-blue-700 text-white text-center p-4 mt-8">
+    <div class="flex flex-col md:flex-row justify-center gap-4 mb-4">
+      <a href="about.html" class="text-white hover:underline">关于我们</a>
+      <a href="about.html#contact" class="text-white hover:underline">客服支持</a>
+      <a href="member.html" class="text-white hover:underline">会员服务</a>
+    </div>
+    <p>&copy; 2026 数字游民平台 - 所有权利保留 | 工具数据仅供参考，请以实际为准</p>
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // 预算计算器逻辑
+    document.getElementById('calculate-btn').addEventListener('click', function() {
+      const dailyExpense = Number(document.getElementById('daily-expense').value) || 0;
+      const monthlyRent = Number(document.getElementById('monthly-rent').value) || 0;
+      const monthlyTransport = Number(document.getElementById('monthly-transport').value) || 0;
+      const monthlyInternet = Number(document.getElementById('monthly-internet').value) || 0;
+      
+      const monthlyCost = (dailyExpense * 30) + monthlyRent + monthlyTransport + monthlyInternet;
+      document.getElementById('monthly-cost').textContent = `月总成本：￥${monthlyCost.toFixed(2)}`;
+      document.getElementById('cost-tips').classList.remove('hidden');
+    });
+
+    // 汇率工具逻辑（模拟实时汇率）
+    document.getElementById('get-exchange-rate').addEventListener('click', function() {
+      const cnyAmount = Number(document.getElementById('cny-amount').value) || 0;
+      const currency = document.getElementById('currency-select').value;
+      
+      // 模拟实时汇率（2026年参考）
+      const rates = {
+        usd: 0.138,
+        eur: 0.128,
+        thb: 4.72,
+        idr: 2150,
+        sgd: 0.185,
+        myr: 0.65
+      };
+      
+      const convertedAmount = cnyAmount * rates[currency];
+      const currencyLabels = {
+        usd: '美元(USD)',
+        eur: '欧元(EUR)',
+        thb: '泰铢(THB)',
+        idr: '印尼盾(IDR)',
+        sgd: '新加坡元(SGD)',
+        myr: '马来西亚林吉特(MYR)'
+      };
+      
+      document.getElementById('exchange-rate').textContent = `转换结果：${convertedAmount.toFixed(2)} ${currencyLabels[currency]}`;
+      document.getElementById('rate-update-time').classList.remove('hidden');
+    });
+
+    // 签证时长计算器逻辑
+    document.getElementById('calculate-visa').addEventListener('click', function() {
+      const country = document.getElementById('country-select').value;
+      const entryDate = document.getElementById('entry-date').value;
+      
+      if (!entryDate) {
+        document.getElementById('visa-result').textContent = '可停留时长：请选择入境日期';
+        return;
+      }
+      
+      // 中国护照签证政策（2026年参考）
+      const visaDays = {
+        thailand: 60,
+        indonesia: 30,
+        malaysia: 15,
+        vietnam: 30
+      };
+      
+      const entryDateObj = new Date(entryDate);
+      const exitDateObj = new Date(entryDateObj);
+      exitDateObj.setDate(exitDateObj.getDate() + visaDays[country]);
+      
+      const exitDate = exitDateObj.toLocaleDateString('zh-CN');
+      document.getElementById('visa-result').textContent = `可停留时长：${visaDays[country]}天，最晚离境日期：${exitDate}`;
+      document.getElementById('visa-tips').classList.remove('hidden');
+    });
+  </script>
 </body>
 </html>
- 

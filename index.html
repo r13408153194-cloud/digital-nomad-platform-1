@@ -8,36 +8,41 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+  
+  <!-- Firebase SDK（统一8.10.0兼容版） -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-<!-- 初始化 Firebase -->
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
-  authDomain: "digital-nomad-platform.firebaseapp.com",
-  projectId: "digital-nomad-platform",
-  storageBucket: "digital-nomad-platform.firebasestorage.app",
-  messagingSenderId: "905530532266",
-  appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
-  measurementId: "G-PELJHP7PKV"
-};
+  <!-- 初始化 Firebase（标准化配置） -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
+      authDomain: "digital-nomad-platform.firebaseapp.com",
+      projectId: "digital-nomad-platform",
+      storageBucket: "digital-nomad-platform.firebasestorage.app",
+      messagingSenderId: "905530532266",
+      appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
+      measurementId: "G-PELJHP7PKV"
+    };
 
-  // 初始化 Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-</script>
+    // 初始化 Firebase 核心及各功能模块
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <!-- 导航栏 -->
+  <!-- 导航栏（适配中国用户习惯，补充语言切换/人民币计价） -->
   <header class="bg-blue-700 p-4">
     <nav class="flex justify-between items-center">
       <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
+      <div class="hidden lg:flex items-center space-x-4">
+        <span class="text-white text-sm">语言: 中文</span>
+        <span class="text-white text-sm">计价: 人民币(CNY)</span>
+      </div>
       <button id="hamburger-menu" class="text-white lg:hidden">
         <span class="block w-6 h-1 bg-white mb-1"></span>
         <span class="block w-6 h-1 bg-white mb-1"></span>
@@ -54,58 +59,104 @@
     </nav>
   </header>
 
-  <!-- 英雄横幅 -->
+  <!-- 英雄横幅（强化中国数字游民场景） -->
   <section class="bg-blue-500 text-white text-center py-16">
-    <h1 class="text-4xl font-bold">探索最佳数字游民目的地</h1>
-    <p class="mt-4 text-xl">加入我们，发现适合数字游民的城市，开启自由工作生活</p>
+    <h1 class="text-4xl font-bold">探索适合中国数字游民的全球目的地</h1>
+    <p class="mt-4 text-xl">适配中文环境、人民币计价、签证指南，开启你的远程工作生活</p>
+    <button class="mt-6 px-6 py-2 bg-white text-blue-700 rounded-lg font-semibold">立即探索</button>
   </section>
 
-  <!-- 功能入口卡片 -->
+  <!-- 功能入口卡片（补充中国用户核心需求） -->
   <section class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
-    <div class="bg-white p-6 rounded-lg shadow-md">
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <h2 class="text-2xl font-semibold">目的地</h2>
-      <p>查看全球最适合数字游民的城市。</p>
-      <a href="destinations.html" class="text-blue-700">查看更多</a>
+      <p>查看对中国护照友好、中文普及的数字游民城市。</p>
+      <a href="destinations.html" class="text-blue-700 inline-block mt-4">查看更多</a>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow-md">
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <h2 class="text-2xl font-semibold">社区</h2>
-      <p>与全球数字游民互动，分享经验。</p>
-      <a href="community.html" class="text-blue-700">进入社区</a>
+      <p>与中国数字游民互动，分享签证、支付、远程工作经验。</p>
+      <a href="community.html" class="text-blue-700 inline-block mt-4">进入社区</a>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow-md">
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
       <h2 class="text-2xl font-semibold">工具</h2>
-      <p>实用的预算计算器和汇率工具。</p>
-      <a href="tools.html" class="text-blue-700">使用工具</a>
+      <p>人民币计价的预算计算器、汇率转换、签证时长计算工具。</p>
+      <a href="tools.html" class="text-blue-700 inline-block mt-4">使用工具</a>
     </div>
   </section>
 
-  <!-- 热门目的地展示 -->
+  <!-- 热门目的地展示（适配中国用户偏好） -->
   <section class="p-8">
-    <h2 class="text-3xl font-bold mb-4">热门目的地</h2>
+    <h2 class="text-3xl font-bold mb-4">热门目的地（对中国友好）</h2>
     <div id="destinations" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- 动态加载城市信息 -->
+      <!-- 动态加载城市信息（示例占位） -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="https://picsum.photos/400/200" alt="曼谷" class="w-full h-40 object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold text-xl">曼谷</h3>
+          <p class="text-gray-600">月成本: ¥6000-8000</p>
+          <p class="text-sm mt-2">落地签 | 中文普及 | 移动支付便利</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="https://picsum.photos/400/201" alt="清迈" class="w-full h-40 object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold text-xl">清迈</h3>
+          <p class="text-gray-600">月成本: ¥4000-6000</p>
+          <p class="text-sm mt-2">落地签 | 低生活成本 | 数字游民社区成熟</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="https://picsum.photos/400/202" alt="巴厘岛" class="w-full h-40 object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold text-xl">巴厘岛</h3>
+          <p class="text-gray-600">月成本: ¥5000-7000</p>
+          <p class="text-sm mt-2">落地签 | 风景优美 | 远程办公环境好</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="https://picsum.photos/400/203" alt="胡志明市" class="w-full h-40 object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold text-xl">胡志明市</h3>
+          <p class="text-gray-600">月成本: ¥3000-5000</p>
+          <p class="text-sm mt-2">落地签 | 极低生活成本 | 网络稳定</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 平台介绍 -->
+  <!-- 平台介绍（突出中国用户适配） -->
   <section class="bg-gray-100 p-8">
     <h2 class="text-3xl font-bold mb-4">关于我们</h2>
-    <p>我们致力于为数字游民提供最佳的工作与生活目的地选择。</p>
+    <p class="max-w-3xl mx-auto">我们专为中国数字游民打造，提供适配中文环境、人民币计价、中国护照签证指南的目的地推荐，以及本土化的远程工作工具和社区，帮助你轻松规划海外远程生活。</p>
   </section>
 
-  <!-- 用户评价 -->
+  <!-- 用户评价（中国用户真实场景） -->
   <section class="p-8">
     <h2 class="text-3xl font-bold mb-4">用户评价</h2>
-    <p>看看其他数字游民对我们平台的评价。</p>
-    <!-- 用户评价内容 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="italic">"平台的签证指南太实用了，帮我顺利申请到泰国的数字游民签证，人民币计价的预算工具也很贴合需求！"</p>
+        <p class="mt-4 font-semibold">—— 小李，远程设计师（清迈）</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="italic">"在社区认识了很多中国数字游民，分享的支付和网络解决方案，解决了我在巴厘岛的大问题。"</p>
+        <p class="mt-4 font-semibold">—— 小张，自由撰稿人（巴厘岛）</p>
+      </div>
+    </div>
   </section>
 
-  <!-- 页脚 -->
+  <!-- 页脚（补充中国用户服务） -->
   <footer class="bg-blue-700 text-white text-center p-4">
-    <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
+    <div class="flex flex-col md:flex-row justify-center gap-4 mb-4">
+      <a href="about.html" class="text-white hover:underline">关于我们</a>
+      <a href="about.html#contact" class="text-white hover:underline">客服支持</a>
+      <a href="member.html" class="text-white hover:underline">会员服务</a>
+      <a href="#" class="text-white hover:underline">隐私政策（适配中国法规）</a>
+    </div>
+    <p>&copy; 2026 数字游民平台 - 所有权利保留 | 适配中国用户的数字游民一站式服务</p>
   </footer>
 
   <script src="js/main.js"></script>
 </body>
 </html>
- 

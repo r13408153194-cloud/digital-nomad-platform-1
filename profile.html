@@ -8,36 +8,40 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+  <!-- Firebase SDK（统一8.10.0兼容版） -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-<!-- 初始化 Firebase -->
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
-  authDomain: "digital-nomad-platform.firebaseapp.com",
-  projectId: "digital-nomad-platform",
-  storageBucket: "digital-nomad-platform.firebasestorage.app",
-  messagingSenderId: "905530532266",
-  appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
-  measurementId: "G-PELJHP7PKV"
-};
+  <!-- 初始化 Firebase（标准化配置） -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
+      authDomain: "digital-nomad-platform.firebaseapp.com",
+      projectId: "digital-nomad-platform",
+      storageBucket: "digital-nomad-platform.firebasestorage.app",
+      messagingSenderId: "905530532266",
+      appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
+      measurementId: "G-PELJHP7PKV"
+    };
 
-  // 初始化 Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-</script>
+    // 初始化 Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-900">
   <!-- 导航栏 -->
   <header class="bg-blue-700 p-4">
     <nav class="flex justify-between items-center">
       <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
+      <div class="hidden lg:flex items-center space-x-4 mr-4">
+        <span class="text-white text-sm">语言: 中文</span>
+        <span class="text-white text-sm">计价: 人民币(CNY)</span>
+      </div>
       <button id="hamburger-menu" class="text-white lg:hidden">
         <span class="block w-6 h-1 bg-white mb-1"></span>
         <span class="block w-6 h-1 bg-white mb-1"></span>
@@ -53,29 +57,99 @@
     </nav>
   </header>
 
-  <!-- 个人中心内容 -->
+  <!-- 个人中心内容（适配中国用户） -->
   <section class="p-8">
     <h2 class="text-3xl font-bold mb-4">个人中心</h2>
-    <p>查看和管理您的账户信息，收藏目的地，查看浏览记录等。</p>
-
-    <div class="mt-6">
-      <h3 class="text-2xl font-semibold">个人信息</h3>
-      <!-- 登录后显示的用户信息 -->
-      <p>用户名: <!-- 用户名动态展示 --></p>
-      <p>邮箱: <!-- 用户邮箱动态展示 --></p>
+    
+    <!-- 未登录提示 -->
+    <div id="unlogin-section" class="bg-white p-6 rounded-lg shadow-md mb-6">
+      <p class="text-lg">您尚未登录，请先<a href="login.html" class="text-blue-700 font-semibold">登录/注册</a>，以管理您的账户信息、收藏目的地等。</p>
     </div>
 
-    <div class="mt-6">
-      <h3 class="text-2xl font-semibold">我的收藏</h3>
-      <p>您收藏的目的地：<!-- 收藏目的地列表 --></p>
+    <!-- 登录后显示的内容（示例） -->
+    <div id="user-section" class="hidden">
+      <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+        <div class="flex items-center mb-4">
+          <img src="https://picsum.photos/80/80" alt="用户头像" class="w-16 h-16 rounded-full mr-4">
+          <div>
+            <h3 class="text-2xl font-semibold">数字游民_123</h3>
+            <p class="text-gray-600">普通会员 | 注册时间: 2026-01-01</p>
+          </div>
+        </div>
+        <h3 class="text-2xl font-semibold mt-6 mb-2">个人信息</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-gray-600">用户名:</p>
+            <p class="font-medium">数字游民_123</p>
+          </div>
+          <div>
+            <p class="text-gray-600">邮箱:</p>
+            <p class="font-medium">user@example.com</p>
+          </div>
+          <div>
+            <p class="text-gray-600">常用币种:</p>
+            <p class="font-medium">人民币(CNY)</p>
+          </div>
+          <div>
+            <p class="text-gray-600">常用目的地:</p>
+            <p class="font-medium">泰国、印尼</p>
+          </div>
+        </div>
+        <button class="mt-4 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">编辑个人信息</button>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-2xl font-semibold mb-4">我的收藏</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- 收藏的目的地示例 -->
+          <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+            <img src="https://picsum.photos/400/200" alt="清迈" class="w-full h-32 object-cover">
+            <div class="p-3">
+              <h4 class="font-semibold">清迈</h4>
+              <p class="text-sm text-gray-600">月成本: ¥4000-6000 | 落地签</p>
+              <button class="mt-2 text-sm text-red-600">取消收藏</button>
+            </div>
+          </div>
+          <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+            <img src="https://picsum.photos/400/201" alt="巴厘岛" class="w-full h-32 object-cover">
+            <div class="p-3">
+              <h4 class="font-semibold">巴厘岛</h4>
+              <p class="text-sm text-gray-600">月成本: ¥5000-7000 | 落地签</p>
+              <button class="mt-2 text-sm text-red-600">取消收藏</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- 页脚 -->
-  <footer class="bg-blue-700 text-white text-center p-4">
+  <footer class="bg-blue-700 text-white text-center p-4 mt-8">
+    <div class="flex flex-col md:flex-row justify-center gap-4 mb-4">
+      <a href="about.html" class="text-white hover:underline">关于我们</a>
+      <a href="about.html#contact" class="text-white hover:underline">客服支持</a>
+      <a href="member.html" class="text-white hover:underline">会员服务</a>
+    </div>
     <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // 监听用户登录状态
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('unlogin-section').classList.add('hidden');
+        document.getElementById('user-section').classList.remove('hidden');
+        // 加载用户信息（示例）
+        db.collection('users').doc(user.uid).get().then(doc => {
+          if (doc.exists) {
+            const userData = doc.data();
+            document.querySelector('#user-section .font-semibold').textContent = userData.nickname || '数字游民';
+            document.querySelector('#user-section .text-gray-600 + .font-medium').textContent = userData.email;
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>

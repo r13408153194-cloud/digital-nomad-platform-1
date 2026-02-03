@@ -8,35 +8,40 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
-  <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+  <!-- Firebase SDK（统一8.10.0兼容版） -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-<!-- 初始化 Firebase -->
-<script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
-  authDomain: "digital-nomad-platform.firebaseapp.com",
-  projectId: "digital-nomad-platform",
-  storageBucket: "digital-nomad-platform.firebasestorage.app",
-  messagingSenderId: "905530532266",
-  appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
-  measurementId: "G-PELJHP7PKV"
-};
+  <!-- 初始化 Firebase（标准化配置） -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQwwuV9vu-nCyAJas_wvxs4kRIp51cToA",
+      authDomain: "digital-nomad-platform.firebaseapp.com",
+      projectId: "digital-nomad-platform",
+      storageBucket: "digital-nomad-platform.firebasestorage.app",
+      messagingSenderId: "905530532266",
+      appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
+      measurementId: "G-PELJHP7PKV"
+    };
 
-  // 初始化 Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  const storage = firebase.storage();
-</script>
+    // 初始化 Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+  </script>
+</head>
 <body class="bg-gray-50 text-gray-900">
   <!-- 导航栏 -->
   <header class="bg-blue-700 p-4">
     <nav class="flex justify-between items-center">
       <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
+      <div class="hidden lg:flex items-center space-x-4 mr-4">
+        <span class="text-white text-sm">语言: 中文</span>
+        <span class="text-white text-sm">计价: 人民币(CNY)</span>
+      </div>
       <button id="hamburger-menu" class="text-white lg:hidden">
         <span class="block w-6 h-1 bg-white mb-1"></span>
         <span class="block w-6 h-1 bg-white mb-1"></span>
@@ -52,35 +57,69 @@
     </nav>
   </header>
 
-  <!-- 会员权益 -->
+  <!-- 会员权益（适配中国用户） -->
   <section class="p-8">
-    <h2 class="text-3xl font-bold mb-4">会员权益</h2>
-    <div class="bg-white p-6 rounded-lg shadow-md">
-      <h3 class="text-2xl font-semibold">免费会员</h3>
-      <ul class="list-disc pl-6 mt-4">
-        <li>访问所有公开目的地信息</li>
-        <li>参与社区讨论</li>
-      </ul>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-md mt-6">
-      <h3 class="text-2xl font-semibold">付费会员</h3>
-      <ul class="list-disc pl-6 mt-4">
-        <li>专享热门目的地推荐</li>
-        <li>高级社区功能</li>
-        <li>更多工具和资源</li>
-      </ul>
+    <h2 class="text-3xl font-bold mb-4 text-center">会员权益（人民币计价）</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+      <!-- 免费会员 -->
+      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-gray-300">
+        <h3 class="text-2xl font-semibold mb-4 text-center">免费会员</h3>
+        <p class="text-center text-gray-600 mb-6">永久免费 | 基础功能</p>
+        <ul class="list-disc pl-6 mt-4 space-y-3">
+          <li>访问所有公开目的地信息（含中国护照签证政策）</li>
+          <li>参与社区基础讨论（无法发布/回复带图内容）</li>
+          <li>使用基础预算计算器（人民币计价）</li>
+          <li>查看基础汇率转换工具</li>
+        </ul>
+        <div class="text-center mt-6">
+          <button class="px-6 py-2 bg-gray-200 rounded-lg" disabled>已默认开通</button>
+        </div>
+      </div>
+
+      <!-- 付费会员 -->
+      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-blue-700">
+        <h3 class="text-2xl font-semibold mb-4 text-center">高级会员</h3>
+        <p class="text-center text-blue-700 font-semibold mb-6">¥99/月 | ¥999/年（立省¥189）</p>
+        <ul class="list-disc pl-6 mt-4 space-y-3">
+          <li>专享热门目的地深度指南（含中文服务商家）</li>
+          <li>高级社区功能（发布/回复带图、置顶帖子）</li>
+          <li>专属客服1v1解答（签证/支付/租房）</li>
+          <li>高级工具（签证时长计算、跨境收款费率对比）</li>
+          <li>线下数字游民聚会优先参与（国内/海外）</li>
+          <li>免税店/ coworking空间专属折扣（中国用户专享）</li>
+        </ul>
+        <div class="text-center mt-6">
+          <button class="px-6 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition-colors">立即开通</button>
+        </div>
+      </div>
     </div>
 
-    <div class="mt-6">
-      <p class="text-lg">扫描以下二维码或链接支付成为付费会员：</p>
-      <!-- 预留微信/支付宝二维码 -->
-      <p class="mt-2 text-blue-700">扫码支付</p>
+    <!-- 支付方式（中国主流支付） -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold mb-4">支付方式</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="text-center">
+          <img src="https://picsum.photos/150/150" alt="微信支付二维码" class="mx-auto border border-gray-200 p-2 rounded-lg">
+          <p class="mt-2 font-semibold">微信支付</p>
+        </div>
+        <div class="text-center">
+          <img src="https://picsum.photos/151/150" alt="支付宝支付二维码" class="mx-auto border border-gray-200 p-2 rounded-lg">
+          <p class="mt-2 font-semibold">支付宝</p>
+        </div>
+      </div>
+      <p class="mt-4 text-gray-600 text-center">支付后请联系客服（微信：NomadPlatformCN）验证开通会员</p>
     </div>
   </section>
 
   <!-- 页脚 -->
-  <footer class="bg-blue-700 text-white text-center p-4">
-    <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
+  <footer class="bg-blue-700 text-white text-center p-4 mt-8">
+    <div class="flex flex-col md:flex-row justify-center gap-4 mb-4">
+      <a href="about.html" class="text-white hover:underline">关于我们</a>
+      <a href="about.html#contact" class="text-white hover:underline">客服支持</a>
+      <a href="#" class="text-white hover:underline">会员协议（适配中国法规）</a>
+    </div>
+    <p>&copy; 2026 数字游民平台 - 所有权利保留 | 人民币计价 · 国内支付</p>
   </footer>
 
   <script src="js/main.js"></script>
