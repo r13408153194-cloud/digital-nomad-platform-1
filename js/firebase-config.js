@@ -1,4 +1,4 @@
-// Firebase ÅäÖÃÊ¾Àı
+// Firebase é…ç½®ç¤ºä¾‹
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
@@ -8,5 +8,5 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID",
 };
 
-// ³õÊ¼»¯ Firebase
+// åˆå§‹åŒ– Firebase
 firebase.initializeApp(firebaseConfig);
