@@ -3,41 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="数字游民平台账号登录页面">
-  <title>登录</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="https://picsum.photos/32/32" type="image/x-icon">
+  <title>登录/注册 | 数字游民平台</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+    body { background: #f5f5f5; padding: 20px; }
+    .login-box { max-width: 400px; margin: 50px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .tab-box { display: flex; margin-bottom: 20px; }
+    .tab { flex: 1; text-align: center; padding: 10px; border: 1px solid #eee; cursor: pointer; }
+    .tab.active { background: #2196F3; color: white; border-color: #2196F3; }
+    .form-box { display: none; }
+    .form-box.active { display: block; }
+    input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; }
+    button { width: 100%; padding: 12px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+    button:disabled { background: #ccc; }
+    .tip { color: red; margin: 10px 0; font-size: 14px; }
+    .success { color: green; }
+  </style>
+  <!-- 粘贴Firebase代码（和其他页面一致） -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQwuV9vu-nCyAJas_wvxs4kRIp51cToA",
+      authDomain: "digital-nomad-platform.firebaseapp.com",
+      projectId: "digital-nomad-platform",
+      storageBucket: "digital-nomad-platform.firebasestorage.app",
+      messagingSenderId: "905530532266",
+      appId: "1:905530532266:web:938c8a626bd0a17a3c8bd3",
+      measurementId: "G-PELJHP7PKV"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
 </head>
-<body class="bg-gray-50 text-gray-900">
-  <!-- 导航栏 -->
-  <header class="bg-blue-700 p-4">
-    <nav class="flex justify-between items-center">
-      <a href="index.html" class="text-white text-2xl font-bold">数字游民平台</a>
-    </nav>
-  </header>
+<body>
+  <div class="login-box">
+    <div class="tab-box">
+      <div class="tab active" onclick="switchTab('login')">登录</div>
+      <div class="tab" onclick="switchTab('register')">注册</div>
+    </div>
+    <!-- 登录表单 -->
+    <div class="form-box active" id="loginForm">
+      <input type="email" id="loginEmail" placeholder="请输入邮箱" required>
+      <input type="password" id="loginPwd" placeholder="请输入密码" required>
+      <div class="tip" id="loginTip"></div>
+      <button onclick="login()">登录</button>
+    </div>
+    <!-- 注册表单 -->
+    <div class="form-box" id="registerForm">
+      <input type="email" id="regEmail" placeholder="请输入邮箱" required>
+      <input type="password" id="regPwd" placeholder="请输入密码（至少6位）" required>
+      <div class="tip" id="regTip"></div>
+      <button onclick="register()">注册</button>
+    </div>
+  </div>
 
-  <!-- 登录表单 -->
-  <section class="p-8">
-    <h2 class="text-3xl font-bold mb-4">账号登录</h2>
+  <script>
+    // 切换登录/注册标签
+    function switchTab(type) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.form-box').forEach(f => f.classList.remove('active'));
+      document.querySelector(`.tab[onclick*=${type}]`).classList.add('active');
+      document.getElementById(`${type}Form`).classList.add('active');
+      document.getElementById(`${type}Tip`).textContent = '';
+    }
 
-    <form id="login-form" class="bg-white p-6 rounded-lg shadow-md">
-      <label for="email" class="block text-lg">邮箱</label>
-      <input id="email" type="email" class="p-2 w-full border border-gray-300 rounded mt-2" placeholder="请输入您的邮箱" required>
+    // 登录功能
+    async function login() {
+      const email = document.getElementById('loginEmail').value;
+      const pwd = document.getElementById('loginPwd').value;
+      const tip = document.getElementById('loginTip');
+      if (!email || !pwd) { tip.textContent = '请填写完整信息'; return; }
+      
+      try {
+        await auth.signInWithEmailAndPassword(email, pwd);
+        tip.className = 'tip success';
+        tip.textContent = '登录成功！正在跳转到首页...';
+        setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+      } catch (err) {
+        tip.textContent = '登录失败：' + err.message;
+      }
+    }
 
-      <label for="password" class="block text-lg mt-4">密码</label>
-      <input id="password" type="password" class="p-2 w-full border border-gray-300 rounded mt-2" placeholder="请输入您的密码" required>
+    // 注册功能
+    async function register() {
+      const email = document.getElementById('regEmail').value;
+      const pwd = document.getElementById('regPwd').value;
+      const tip = document.getElementById('regTip');
+      if (!email || !pwd || pwd.length <6) { 
+        tip.textContent = '密码至少6位，请填写完整'; 
+        return; 
+      }
+      
+      try {
+        // 创建用户
+        const user = await auth.createUserWithEmailAndPassword(email, pwd);
+        // 把用户信息存入数据库
+        await db.collection('users').doc(user.user.uid).set({
+          email: email,
+          nickname: '数字游民_' + Math.floor(Math.random()*1000),
+          avatar: '',
+          createTime: new Date()
+        });
+        tip.className = 'tip success';
+        tip.textContent = '注册成功！正在跳转到首页...';
+        setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+      } catch (err) {
+        tip.textContent = '注册失败：' + err.message;
+      }
+    }
 
-      <button type="submit" class="mt-6 p-2 w-full bg-blue-700 text-white rounded">登录</button>
-    </form>
-  </section>
-
-  <!-- 页脚 -->
-  <footer class="bg-blue-700 text-white text-center p-4">
-    <p>&copy; 2026 数字游民平台 - 所有权利保留</p>
-  </footer>
-
-  <script src="js/firebase-config.js"></script>
-  <script src="js/main.js"></script>
+    // 监听登录状态，已登录直接跳首页
+    auth.onAuthStateChanged(user => {
+      if (user) window.location.href = 'index.html';
+    });
+  </script>
 </body>
 </html>
